@@ -1,0 +1,274 @@
+{
+    "info": {
+        "_postman_id": "ecommerce-crawler-api",
+        "name": "E-Commerce Product Crawler API",
+        "description": "Complete API collection for the E-Commerce Product Crawler - supports ToysRUs and Amazon with anti-bot evasion",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "General",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                ""
+                            ]
+                        },
+                        "description": "Check if the API is running and healthy"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "ToysRUs Crawler",
+            "item": [
+                {
+                    "name": "Crawl ToysRUs Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"url\": \"https://www.toysrus.ca/en/toysrus/Barbie-Doll-amp-Accessories/C457191A.html\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl"
+                            ]
+                        },
+                        "description": "Crawl a ToysRUs product page using HTTP requests + BeautifulSoup"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Batch Crawl ToysRUs",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"urls\": [\n        \"https://www.toysrus.ca/en/toysrus/Barbie-Doll-amp-Accessories/C457191A.html\",\n        \"https://www.toysrus.ca/en/toysrus/LEGO-example/12345.html\"\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/batch_crawl",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "batch_crawl"
+                            ]
+                        },
+                        "description": "Crawl multiple ToysRUs product pages in a single request"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Amazon Crawler (Anti-Bot)",
+            "item": [
+                {
+                    "name": "Crawl Amazon Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"url\": \"https://www.amazon.com/dp/B0F8LLT3JR\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl/amazon",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl",
+                                "amazon"
+                            ]
+                        },
+                        "description": "Crawl an Amazon product page using SeleniumBase UC Mode to bypass bot detection"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Crawl Amazon Product (Spanish)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"url\": \"https://www.amazon.com/-/es/Recuerdos-paquete-juguetes-rellenos-calcetines/dp/B0F8LLT3JR\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl/amazon",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl",
+                                "amazon"
+                            ]
+                        },
+                        "description": "Crawl an Amazon product page in Spanish - demonstrates multi-language support"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Batch Crawl Amazon",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"urls\": [\n        \"https://www.amazon.com/dp/B0F8LLT3JR\",\n        \"https://www.amazon.com/dp/B0FJX178QS\"\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/batch_crawl/amazon",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "batch_crawl",
+                                "amazon"
+                            ]
+                        },
+                        "description": "Crawl multiple Amazon products using a single browser session for efficiency"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Error Cases",
+            "item": [
+                {
+                    "name": "Invalid URL - No Scheme",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"url\": \"www.example.com/product\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl"
+                            ]
+                        },
+                        "description": "Test with URL missing http/https - expects 422 Validation Error"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Invalid URL - Bad Format",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"url\": \"not-a-valid-url\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl"
+                            ]
+                        },
+                        "description": "Test with completely invalid URL - expects 422 Validation Error"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Missing URL in Body",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crawl",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crawl"
+                            ]
+                        },
+                        "description": "Test with missing URL field - expects 422 Validation Error"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
