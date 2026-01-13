@@ -39,7 +39,8 @@ output/                        # Extracted product data (JSON files)
 
 ```bash
 # Clone and navigate to project
-cd assignment
+git clone https://github.com/Nomanriaz786/web_scraper_ai_engineer.git
+cd web_scraper_ai_engineer
 
 # Create virtual environment
 python -m venv .venv
